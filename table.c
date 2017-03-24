@@ -130,14 +130,14 @@ char * nextItem()
   return item;
 }
 //ADDED! free's memory of table that is not deleted before at the end of the program to prevent memory leaks
-// void clearTable()
-// {
-	// Node *curr = top;
-	// while(top!=NULL)
-	// {
-		// top = top->next;
-		// free(curr);
-		// curr = top;
-	// }
-	// assert(top==NULL);
-// }
+void clearTable()
+{
+	Node *curr = top;
+	while(top!=NULL)
+	{
+		top = top->next;
+		free(curr);
+		curr = top;
+	}
+	assert(top==NULL);
+}
