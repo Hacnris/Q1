@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
+#include "table.h"
 
-typedef enum BOOL { false, true } Boolean;
+// typedef enum BOOL { false, true } Boolean;
 
-// Linked list node definition
-typedef struct NODE Node;
+// // Linked list node definition
+// typedef struct NODE Node;
 
-struct NODE
-{
-  char *string;
-  Node *next;
-};
+// struct NODE
+// {
+  // char *string;
+  // Node *next;
+// };
 
 static Node *top = NULL;
 static int numNodes = 0;
@@ -21,17 +23,20 @@ static Node *traverseNode = NULL;
 
 int size( )
 {
+	assert(numNodes>=0);
     return numNodes;
 }
     
 // add an element to the beginning of the linked list
 Boolean insert( char const * const new_string )
 {
+	assert(new_string != NULL);
+	assert(strcmp(new_string,""));
   Boolean rc = true;
   Node *newNode = NULL;
   
   newNode = (Node *)malloc( sizeof( Node ) );
-  
+  assert(newNode != NULL);
   newNode->next = top;
   top = newNode;
   
@@ -50,7 +55,8 @@ Boolean delete( char const * const target )
   Boolean deleted = false;
   Node *curr = top;
   Node *prev = NULL;
-  
+  assert(target!=NULL);
+  assert(curr->string!=NULL);
   while ( curr != NULL && strcmp( target, curr->string ) != 0 )
   {
     prev = curr;
@@ -99,8 +105,10 @@ Boolean search( char const * const target )
 // starts a list traversal by getting the data at top
 char * firstItem()
 {
+	assert(top!=NULL);
   traverseNode = top->next;
-  
+  assert(top->string!=NULL);
+  assert(strcmp(top->string,"")!=0);
   return top->string;
 }
 
@@ -115,7 +123,21 @@ char * nextItem()
   {
     item = traverseNode->string;
     traverseNode = traverseNode->next;
+	assert(item!= NULL);
+	assert(strcmp(item,"")!=0);
   }
-  
+ 
   return item;
 }
+//ADDED! free's memory of table that is not deleted before at the end of the program to prevent memory leaks
+// void clearTable()
+// {
+	// Node *curr = top;
+	// while(top!=NULL)
+	// {
+		// top = top->next;
+		// free(curr);
+		// curr = top;
+	// }
+	// assert(top==NULL);
+// }
