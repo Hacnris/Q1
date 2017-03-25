@@ -16,4 +16,5 @@ Boolean delete(char const*const target);
 Boolean search(char const * const target);
 char * firstItem();
 char * nextItem();
+void clearTable();
 #endif
