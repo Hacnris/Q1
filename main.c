@@ -1,9 +1,9 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include "table.h"
+
 void addSuite();
 int checkWord(const char * const string);
 void printTable();
